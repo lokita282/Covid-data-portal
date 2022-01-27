@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import Search from './components/Search'
 import { Typography, Stack, Card} from '@mui/material'
+// import { countryDataProvider } from './components/Context'
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
   return (
     <div style={{ backgroundColor: '#F5F5F5' }}>
       <div className="App">
+        {/* <countryDataProvider value={countryData}> */}
         <Header />
         <Stack spacing={3}>
           <GlobalCard globalData={globalData} />
@@ -40,17 +42,21 @@ function App() {
           >
             <Card
               sx={{ width: 700 }}
-              style={{ backgroundColor: '#F5FCFF', margin: '17px' }}
+              style={{ backgroundColor: '#F5FCFF', marginBottom: '20px' }}
             >
-              <Typography variant="h5" color="initial">
+              <Typography
+                variant="h5"
+                color="initial"
+                sx={{ paddingTop: '30px' }}
+              >
                 Filter Searches
               </Typography>
               <Search countryData={countryData} />
             </Card>
           </div>
-          <CountryCard countryData={countryData} />
         </Stack>
         <Footer />
+        {/* </countryDataProvider> */}
       </div>
     </div>
   )

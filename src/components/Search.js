@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import {
   Box,
   TextField,
@@ -12,8 +12,12 @@ import {
   FormControl,
   Select,
 } from '@mui/material'
+import CountryCard from './CountryCard'
+
+// import { countryDataContext } from './Context'
 
 export default function Search({ countryData }) {
+  // const { countryData } = useContext(countryDataContext)
   const [country, setCountry] = useState('Afghanistan')
   const [parameter, setParameter] = useState('')
   const [data, setData] = useState({})
@@ -25,18 +29,36 @@ export default function Search({ countryData }) {
   const [p5DisplayState, setp5DisplayState] = useState('none')
   const [p6DisplayState, setp6DisplayState] = useState('none')
 
+  // const inputRef = useRef()
+
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // }, []);
+
   const countries = []
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await countryData.map((country) =>
+  //       countries.push(country.Country)
+  //     )
+  //   // setCountry(countries)
+  //   console.log(response);
+  //   }
+  //   fetchData()
+  // }, [countryData])
+  
   countryData.map((country) => countries.push(country.Country))
 
   const handleSearch = () => {
+    if(parameter === '') return alert('Please enter a parameter')
     countryData.map((c) => {
       if (country === c.Country) {
         setData(c)
       } else return null
     })
+
     switch (parameter) {
       case 'NewConfirmed':
-        console.log(data.NewConfirmed)
         setp1DisplayState('block')
         setp2DisplayState('none')
         setp3DisplayState('none')
@@ -45,7 +67,6 @@ export default function Search({ countryData }) {
         setp6DisplayState('none')
         break
       case 'TotalConfirmed':
-        console.log(data.TotalConfirmed)
         setp2DisplayState('block')
         setp1DisplayState('none')
         setp3DisplayState('none')
@@ -54,7 +75,6 @@ export default function Search({ countryData }) {
         setp6DisplayState('none')
         break
       case 'NewDeaths':
-        console.log(data.NewDeaths)
         setp3DisplayState('block')
         setp1DisplayState('none')
         setp2DisplayState('none')
@@ -63,7 +83,6 @@ export default function Search({ countryData }) {
         setp6DisplayState('none')
         break
       case 'TotalDeaths':
-        console.log(data.TotalDeaths)
         setp4DisplayState('block')
         setp1DisplayState('none')
         setp2DisplayState('none')
@@ -72,7 +91,6 @@ export default function Search({ countryData }) {
         setp6DisplayState('none')
         break
       case 'NewRecovered':
-        console.log(data.NewRecovered)
         setp5DisplayState('block')
         setp1DisplayState('none')
         setp2DisplayState('none')
@@ -81,7 +99,6 @@ export default function Search({ countryData }) {
         setp6DisplayState('none')
         break
       case 'TotalRecovered':
-        console.log(data.TotalRecovered)
         setp6DisplayState('block')
         setp1DisplayState('none')
         setp2DisplayState('none')
@@ -108,15 +125,16 @@ export default function Search({ countryData }) {
   }
 
   return (
+    <>
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '30ch' },
+        '& .MuiTextField-root': { m: 1, width: '30ch'}
       }}
       noValidate
       autoComplete="off"
     >
-      <div>
+      <div >
         <TextField
           InputLabelProps={{ shrink: true }}
           id="outlined-select-country-native"
@@ -137,11 +155,11 @@ export default function Search({ countryData }) {
         <Box
           sx={{
             minWidth: '95%',
-            fontFamily: 'Readex Pro, sans-serif',
-            marginTop: '0%',
+            // fontFamily: 'Readex Pro, sans-serif',
+            marginTop: '1%',
           }}
         >
-          <FormControl sx={{ width: '29ch' }}>
+          <FormControl sx={{ width: '30ch' }}>
             <InputLabel id="demo-simple-select-label">Parameter</InputLabel>
 
             <Select
@@ -150,6 +168,7 @@ export default function Search({ countryData }) {
               label="parameter"
               name="param"
               value={parameter}
+              // ref={inputRef}
               onChange={(event) => setParameter(event.target.value)}
             >
               <MenuItem value={'NewConfirmed'}>Confirmed new cases</MenuItem>
@@ -187,7 +206,6 @@ export default function Search({ countryData }) {
           style={{ backgroundColor: '#F5FCFF' }}
         >
           <CardHeader title={`Search results for ${data.Country}`} />
-          {console.log(data)}
           <CardContent>
             <Typography variant="body2" sx={{ display: p1DisplayState }}>
               Confirmed new cases: {data.NewConfirmed}
@@ -211,5 +229,8 @@ export default function Search({ countryData }) {
         </Card>
       </div>
     </Box>
+  
+    {displayState==='none' ? <CountryCard countryData={countryData}/> : <></>}
+    </>
   )
 }

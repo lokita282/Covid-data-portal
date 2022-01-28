@@ -1,7 +1,8 @@
 <h1 align="center">Covid Data Portal</h1>
 
 A website which allows you to view the covid stats in countries around the world. \
-This project is made using React JS. 
+This project is made using React JS. \
+Currently hosted here: https://covid-data-portal-lokita.herokuapp.com/
 
 
 After cloning the repository, in the project directory, you can run: 

@@ -2,12 +2,11 @@ import './App.css';
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import GlobalCard from './components/GlobalCard'
-import CountryCard from './components/CountryCard'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Search from './components/Search'
 import { Typography, Stack, Card} from '@mui/material'
-// import { countryDataProvider } from './components/Context'
+import { CountryDataProvider } from './components/Context'
 
 function App() {
 
@@ -24,39 +23,40 @@ function App() {
     }
     fetchData()
   }, []); 
+
   
   return (
     <div style={{ backgroundColor: '#F5F5F5' }}>
       <div className="App">
-        {/* <countryDataProvider value={countryData}> */}
-        <Header />
-        <Stack spacing={3}>
-          <GlobalCard globalData={globalData} />
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <Card
-              sx={{ width: 700 }}
-              style={{ backgroundColor: '#F5FCFF', marginBottom: '20px' }}
+        <CountryDataProvider value={{countryData}}>
+          <Header />
+          <Stack spacing={3}>
+            <GlobalCard globalData={globalData} />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
             >
-              <Typography
-                variant="h5"
-                color="initial"
-                sx={{ paddingTop: '30px' }}
+              <Card
+                sx={{ width: 700 }}
+                style={{ backgroundColor: '#F5FCFF', marginBottom: '20px' }}
               >
-                Filter Searches
-              </Typography>
-              <Search countryData={countryData} />
-            </Card>
-          </div>
-        </Stack>
-        <Footer />
-        {/* </countryDataProvider> */}
+                <Typography
+                  variant="h5"
+                  color="initial"
+                  sx={{ paddingTop: '30px' }}
+                >
+                  Filter Searches
+                </Typography>
+                <Search />
+              </Card>
+            </div>
+          </Stack>
+          <Footer />
+        </CountryDataProvider>
       </div>
     </div>
   )

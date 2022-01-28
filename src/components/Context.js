@@ -1,10 +1,10 @@
 import React from 'react'
 
-const countryDataContext = React.createContext([]);
+const CountryDataContext = React.createContext([]);
 
-const countryDataProvider = countryDataContext.Provider
+const CountryDataProvider = CountryDataContext.Provider
 
 export {
-  countryDataContext,
-  countryDataProvider
+  CountryDataContext,
+  CountryDataProvider
 }

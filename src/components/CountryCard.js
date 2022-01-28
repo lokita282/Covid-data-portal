@@ -1,4 +1,3 @@
-import { React } from 'react'
 import { 
   Typography, 
   Card, 
@@ -7,6 +6,7 @@ import {
 } from '@mui/material'
 
 const CountryCard = ({ countryData }) => {
+
   const renderCard = (card, index) => {
     return (
       <Card
